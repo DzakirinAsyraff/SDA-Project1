@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")
 public class IndexController {
     
-    @GetMapping("/login")
+    @GetMapping("/")
     public String login() {
         return "Misc/Login";
     }

@@ -10,6 +10,6 @@ public class ApplicantController {
     
     @GetMapping("/")
     public String index() {
-        return "ApplicantMenu";
+        return "Applicant/ApplicantMenu";
     }
 }
