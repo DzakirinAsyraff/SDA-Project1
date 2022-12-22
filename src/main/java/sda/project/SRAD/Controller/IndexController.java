@@ -12,7 +12,7 @@ public class IndexController {
     
     @GetMapping("/login")
     public String login() {
-        return "Login";
+        return "Misc/Login";
     }
 
     // a post mapping for login that sends form data 
@@ -24,14 +24,14 @@ public class IndexController {
         } else if (username.equals("appl") && password.equals("1234")) {
             return "redirect:/applicant/";
         } else {
-            return "Login";
+            return "Misc/Login";
         }
     }
 
     // error page
     @GetMapping("/error")
     public String error() {
-        return "Error";
+        return "Misc/Error";
     }
 
 }
