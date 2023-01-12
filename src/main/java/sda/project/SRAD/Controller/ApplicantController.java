@@ -12,4 +12,9 @@ public class ApplicantController {
     public String index() {
         return "Applicant/ApplicantMenu";
     }
+
+    @GetMapping("/apply")
+    public String apply() {
+        return "Applicant/StudentRegistration";
+    }
 }
