@@ -15,16 +15,16 @@ public class StaffController {
 
     @GetMapping("/student-applications")
     public String studentApplications() {
-        return "Staff/StudentApplications";
+        return "Staff/ApplicationEvaluation";
     }
 
     @GetMapping("/agent-applications")
     public String agentApplications() {
-        return "Staff/AgentApplications";
+        return "Staff/ApplicationEvaluation";
     }
 
     @GetMapping("/statistics")
     public String statistics() {
-        return "Staff/Statistics";
+        return "Staff/ViewStatistics";
     }
 }
