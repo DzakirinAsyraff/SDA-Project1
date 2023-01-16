@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <title>Applicant Home</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -43,7 +43,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a th:href="@{/applicant/}" class="logo d-flex align-items-center">
         <img src="/img/logo.png" alt="">
         <span class="d-none d-lg-block">SRAD</span>
       </a>
@@ -93,7 +93,7 @@
                 <div class="row">
 
                 <div class="card-body">
-                    <a href="/applicant/apply" class="stretched-link"></a>
+                    <a th:href="@{/applicant/apply/form}" class="stretched-link"></a>
                   <h5 class="card-title">Apply to Study at UTM</h5>
 
                   <div class="d-flex align-items-center">
@@ -131,7 +131,7 @@
                 </div>
 
                 <div class="card-body">
-                    <a href="/applicant/apply" class="stretched-link"></a>
+                    <a href="/applicant/view-initiated" class="stretched-link"></a>
                   <h5 class="card-title">View Initiated Applications</h5>
 
                   <div class="d-flex align-items-center">
@@ -168,7 +168,7 @@
                 </div>
 
                 <div class="card-body">
-                    <a href="/applicant/apply" class="stretched-link"></a>
+                    <a href="/applicant/view-status" class="stretched-link"></a>
                   <h5 class="card-title">View Application Status</h5>
 
                   <div class="d-flex align-items-center">
@@ -206,7 +206,7 @@
                 </div>
 
                 <div class="card-body">
-                    <a href="/applicant/apply" class="stretched-link"></a>
+                    <a href="/applicant/become-agents" class="stretched-link"></a>
                   <h5 class="card-title">Apply to become representative agents</h5>
 
                   <div class="d-flex align-items-center">

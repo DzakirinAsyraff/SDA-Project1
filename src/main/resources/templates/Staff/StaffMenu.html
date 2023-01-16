@@ -60,7 +60,7 @@
       <h1>Pick A Task</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Staff</a></li>
+          <li class="breadcrumb-item"><a th:href="@{/staff/}">Staff</a></li>
           <li class="breadcrumb-item active">Menu</li>
         </ol>
       </nav>
@@ -91,7 +91,7 @@
                 </div>
 
                 <div class="card-body">
-                  <a href="/staff/" class="stretched-link"></a>
+                  <a th:href="@{/staff/student-applications}" class="stretched-link"></a>
                   <h5 class="card-title">View Pending Student Application</h5>
 
                   <div class="d-flex align-items-center">
@@ -127,7 +127,7 @@
                 </div>
 
                 <div class="card-body">
-                  <a href="/staff/" class="stretched-link"></a>
+                  <a th:href="@{/staff/agent-applications}" class="stretched-link"></a>
                   <h5 class="card-title">View Pending Agent Application</h5>
 
                   <div class="d-flex align-items-center">
@@ -164,7 +164,7 @@
                 </div>
 
                 <div class="card-body">
-                  <a href="/staff/" class="stretched-link"></a>
+                  <a th:href="@{/staff/Statistics}" class="stretched-link"></a>
                   <h5 class="card-title">View Statistics</h5>
 
                   <div class="d-flex align-items-center">
