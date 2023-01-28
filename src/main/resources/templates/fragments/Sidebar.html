@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- Sidebar -->
+<aside id="sidebar" class="sidebar" th:fragment="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+        
+        <!-- Home -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" th:href="@{/}">
+                <i class="bi bi-house"></i>
+                <span>Home</span>
+            </a>
+        </li>
+
+
+        <!-- Student actions -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#students-nav" data-bs-toggle="collapse" th:href="@{#}">
+                <i class="bi bi-person-fill"></i>
+                <span>Student</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+
+            <ul id="students-nav" class="nav-content collapse " data-bs-parent="#students-nav">
+                <li>
+                    <a th:href="@{/}">
+                        <i class="bi bi-circle-fill"></i>
+                        <span>Apply</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/}">
+                        <i class="bi bi-circle-fill"></i>
+                        <span>Application Status</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
+        <!-- Agent actions -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#agents-nav" data-bs-toggle="collapse" th:href="@{#}">
+                <i class="bi bi-person-vcard-fill"></i>
+                <span>Agent</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+
+            <ul id="agents-nav" class="nav-content collapse " data-bs-parent="#agents-nav">
+                <li>
+                    <a th:href="@{/}">
+                        <i class="bi bi-circle-fill"></i>
+                        <span>Apply</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/}">
+                        <i class="bi bi-circle-fill"></i>
+                        <span>Application Status</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/}">
+                        <i class="bi bi-circle-fill"></i>
+                        <span>Apply Student</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
+        <!-- Payment actions -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#payment-nav" data-bs-toggle="collapse" th:href="@{#}">
+                <i class="bi bi-wallet"></i>
+                <span>Payment</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+
+            <ul id="payment-nav" class="nav-content collapse " data-bs-parent="#payment-nav">
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/applicant/apply/form}">
+                        <i class="bi bi-circle-fill"></i>
+                        <span>Application Form</span>
+                    </a>
+                </li>
+          
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/applicant/apply/pay}">
+                        <i class="bi bi-circle-fill"></i>
+                        <span>Processing Fees</span>
+                    </a>
+                </li>
+          
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/applicant/apply/upload}">
+                        <i class="bi bi-circle-fill"></i>
+                        <span>Upload Document</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
+        <!-- Pages -->
+        <li class="nav-heading">Pages</li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" th:href="@{/}">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" th:href="@{/}">
+                <i class="bi bi-card-list"></i>
+                <span>Register</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" th:href="@{/}">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Login</span>
+            </a>
+        </li>
+
+    </ul>
+</aside>
+
+</html>
