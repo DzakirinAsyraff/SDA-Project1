@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <th:block th:replace="~{fragments/Head.html::head('SRAD - 404')}"></th:block>
+</head>
+
+<body>
+<main>
+    <div class="container">
+
+        <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
+            <h1>404</h1>
+            <h2>The page does not exist :(</h2>
+            <a class="btn" th:href="@{/}">Back to home</a>
+            <img th:src="@{/img/not-found.svg}" class="img-fluid py-5" alt="Page Not Found">
+            <div class="credits">
+                Designed by 
+                <a th:href="@{https://bootstrapmade.com/}">BootstrapMade</a>
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<th:block th:replace="~{fragments/BackToTop.html::back-to-top}"></th:block>
+<th:block th:replace="~{fragments/Scripts.html::scripts}"></th:block>
+</body>
+
+</html>

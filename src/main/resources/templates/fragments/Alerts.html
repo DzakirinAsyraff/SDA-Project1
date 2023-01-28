@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- Defines area to display alerts if set inside attributes -->
+<th:block th:fragment="alerts">
+    <div class="w-100 alert alert-primary" role="alert" th:if="${alertPrimary}" th:text="${alertPrimary}"></div>
+    <div class="w-100 alert alert-secondary" role="alert" th:if="${alertSecondary}" th:text="${alertSecondary}"></div>
+    <div class="w-100 alert alert-success" role="alert" th:if="${alertSuccess}" th:text="${alertSuccess}"></div>
+    <div class="w-100 alert alert-danger" role="alert" th:if="${alertDanger}" th:text="${alertDanger}"></div>
+    <div class="w-100 alert alert-warning" role="alert" th:if="${alertWarning}" th:text="${alertWarning}"></div>
+    <div class="w-100 alert alert-info" role="alert" th:if="${alertInfo}" th:text="${alertInfo}"></div>
+    <div class="w-100 alert alert-light" role="alert" th:if="${alertLight}" th:text="${alertLight}"></div>
+    <div class="w-100 alert alert-dark" role="alert" th:if="${alertDark}" th:text="${alertDark}"></div>
+</th:block>
+
+</html>

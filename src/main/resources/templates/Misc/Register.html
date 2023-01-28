@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <th:block th:replace="~{fragments/Head.html::head('SRAD - Register')}"></th:block>
+</head>
+
+<body>
+<main>
+    <div class="container">
+
+        <section
+            class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+                        <!-- Logo -->
+                        <div class="d-flex justify-content-center py-4">
+                            <a th:href="@{/staff/}" class="logo d-flex align-items-center w-auto">
+                                <img th:src="@{/img/logo.png}" alt="SRAD logo">
+                                <span class="d-none d-lg-block ms-2">SRAD</span>
+                            </a>
+                        </div>
+
+                        <!-- Alerts -->
+                        <th:block th:replace="~{fragments/Alerts.html::alerts}"></th:block>
+
+                        <!-- Login Form -->
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="pt-4 pb-2">
+                                    <h5 class="card-title text-center pb-0 fs-4">User Registration</h5>
+                                    <p class="text-center small">Kindly fill in your information</p>
+                                </div>
+
+                                <form class="row g-2 needs-validation" method="POST" th:action="@{/register}">
+
+                                    <!-- Username -->
+                                    <div class="col-12">
+                                        <label for="yourUsername" class="form-label">Username</label>
+                                        <div class="input-group has-validation">
+                                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                            <input type="text" name="username" class="form-control"
+                                                id="yourUsername" required>
+                                            <div class="invalid-feedback">Please enter your username.</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Password -->
+                                    <div class="col-12">
+                                        <label for="yourPassword" class="form-label">Password</label>
+                                        <input type="password" name="password" class="form-control"
+                                            id="yourPassword" required>
+                                        <div class="invalid-feedback">Please enter your password!</div>
+                                    </div>
+
+                                    <!-- Name -->
+                                    <div class="col-12">
+                                        <label for="yourName" class="form-label">Name</label>
+                                        <input type="text" name="name" class="form-control" id="yourName" required>
+                                        <div class="invalid-feedback">Please enter your name!</div>
+                                    </div>
+
+                                    <!-- IC/Passport -->
+                                    <div class="col-12">
+                                        <label for="yourIC" class="form-label">IC/Passport</label>
+                                        <input type="text" name="ic" class="form-control" id="yourIC" required>
+                                        <div class="invalid-feedback">Please enter your IC/Passport!</div>
+                                    </div>
+
+                                    <!-- Contact -->
+                                    <div class="col-12">
+                                        <label for="yourContact" class="form-label">Contact</label>
+                                        <input type="text" name="contact" class="form-control" id="yourContact"
+                                            required>
+                                        <div class="invalid-feedback">Please enter your contact!</div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="col-12">
+                                        <label for="yourEmail" class="form-label">Email</label>
+                                        <input type="email" name="email" class="form-control" id="yourEmail"
+                                            required>
+                                        <div class="invalid-feedback">Please enter your email!</div>
+                                    </div>
+
+                                    <!-- Role -->
+                                    <div class="col-12">
+                                        <label for="yourRole" class="form-label">Role</label>
+                                        <select class="form-select" name="role" id="yourRole" required>
+                                            <option value="STUDENT">Student</option>
+                                            <option value="AGENT">Recruitment Agent</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select your role!</div>
+                                    </div>
+
+
+
+                                    <div class="col-12 mt-5">
+                                        <button class="btn btn-primary w-100" type="submit">Register</button>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <p class="small mb-0">
+                                            Already have an account?
+                                            <a th:href="@{/login}">
+                                                Login
+                                            </a>
+                                        </p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Credits -->
+                        <div class="credits">
+                            Designed by
+                            <a th:href="@{https://bootstrapmade.com/}">BootstrapMade</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+</main>
+
+<th:block th:replace="~{fragments/BackToTop.html::back-to-top}"></th:block>
+<th:block th:replace="~{fragments/Scripts.html::scripts}"></th:block>
+</body>
+
+</html>
