@@ -1,5 +1,6 @@
 package sda.project.SRAD;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import sda.project.SRAD.Entities.User;
 import sda.project.SRAD.Enums.EUserType;
 import sda.project.SRAD.Repositories.UserRepository;
+import sda.project.SRAD.Services.FileStorageService;
 
 
 
@@ -18,17 +20,19 @@ import sda.project.SRAD.Repositories.UserRepository;
 @Component
 public class ApplicationInit implements ApplicationRunner {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-
     @Autowired
-    public ApplicationInit(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private FileStorageService fileStorageService;
 
 
-    public void run(ApplicationArguments args) {
+    public void run(ApplicationArguments args) throws IOException {
+        // Create the uploads folder if it doesn't exist
+        fileStorageService.init();
+
+        // Add some users for testing
         User student = new User();
         student.setUsername("student");
         student.setPassword( passwordEncoder.encode("student") );
