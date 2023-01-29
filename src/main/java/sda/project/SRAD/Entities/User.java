@@ -20,7 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import sda.project.SRAD.DTO.RegistrationFormData;
 import sda.project.SRAD.Enums.EUserType;
 
 
@@ -44,13 +44,27 @@ public class User implements UserDetails {
     private String name;
     private String email;
     private String contactNo;
+    @Column(unique = true)
     private String icPassport;
     private LocalDate registeredAt;
 
     
+    // Constructor from RegistrationFormData
+    public User(RegistrationFormData formData) {
+        this.username = formData.getUsername();
+        this.password = formData.getPassword();
+        this.userType = formData.getUserType();
+        this.name = formData.getName();
+        this.email = formData.getEmail();
+        this.contactNo = formData.getContactNo();
+        this.icPassport = formData.getIcPassport();
+        this.registeredAt = LocalDate.now();
+    }
 
 
 
+
+    // UserDetails interface methods
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList( new SimpleGrantedAuthority( this.userType.toString() ) );
