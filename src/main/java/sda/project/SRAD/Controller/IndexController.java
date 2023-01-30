@@ -45,7 +45,7 @@ public class IndexController {
         }
 
         if (u.getUserType() == EUserType.SRADSTAFF) return "redirect:/staff/";
-        else return "redirect:/student/";
+        else return "redirect:/applicant/";
     }
 
 
