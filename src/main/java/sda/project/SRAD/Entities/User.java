@@ -44,7 +44,6 @@ public class User implements UserDetails {
     private String name;
     private String email;
     private String contactNo;
-    @Column(unique = true)
     private String icPassport;
     private LocalDate registeredAt;
 

@@ -2,109 +2,95 @@
 <html lang="en">
 
 <head>
-  <th:block th:replace="~{fragments/Head.html::head('SRAD - Documents Upload')}"></th:block>
+    <th:block th:replace="~{fragments/Head.html::head('SRAD - Documents Upload')}"></th:block>
 </head>
 
 <body>
-  <!-- Header -->
-  <th:block th:replace="~{fragments/Header.html::header}"></th:block>
-  <!-- Sidebar -->
-  <th:block th:replace="~{fragments/Sidebar.html::sidebar}"></th:block>
+    <!-- Header -->
+    <th:block th:replace="~{fragments/Header.html::header}"></th:block>
+    <!-- Sidebar -->
+    <th:block th:replace="~{fragments/Sidebar.html::sidebar}"></th:block>
 
 
-  <main id="main" class="main">
+    <main id="main" class="main">
 
-    <div class="pagetitle">
-      <h1>Personal Info</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Forms</li>
-          <li class="breadcrumb-item active">Layouts</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-6">
+        <div class="pagetitle">
+            <!-- Alerts -->
+            <th:block th:replace="~{fragments/Alerts.html::alerts}"></th:block>
 
-              
+            <!-- Page title -->
+            <h1>Supporting Documents</h1>
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Multi Columns Form</h5>
-
-              <!-- Multi Columns Form -->
-              <form class="row g-3">
-                <div class="col-md-12">
-                  <label for="inputName5" class="form-label">Your Name</label>
-                  <input type="text" class="form-control" id="inputName5">
-                </div>
-                <div class="col-md-6">
-                  <label for="inputEmail5" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="inputEmail5">
-                </div>
-                <div class="col-md-6">
-                  <label for="inputPassword5" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="inputPassword5">
-                </div>
-                <div class="col-12">
-                  <label for="inputAddress5" class="form-label">Address</label>
-                  <input type="text" class="form-control" id="inputAddres5s" placeholder="1234 Main St">
-                </div>
-                <div class="col-12">
-                  <label for="inputAddress2" class="form-label">Address 2</label>
-                  <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                </div>
-                <div class="col-md-6">
-                  <label for="inputCity" class="form-label">City</label>
-                  <input type="text" class="form-control" id="inputCity">
-                </div>
-                <div class="col-md-4">
-                  <label for="inputState" class="form-label">State</label>
-                  <select id="inputState" class="form-select">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                  </select>
-                </div>
-                <div class="col-md-2">
-                  <label for="inputZip" class="form-label">Zip</label>
-                  <input type="text" class="form-control" id="inputZip">
-                </div>
-                <div class="col-12">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
-                      Check me out
-                    </label>
-                  </div>
-                </div>
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                  <button type="reset" class="btn btn-secondary">Reset</button>
-                </div>
-              </form><!-- End Multi Columns Form -->
-
-            </div>
-          </div>
-
+            <!-- Breadcrumb -->
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a th:href="@{/applicant}">Applicant</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Upload Documents
+                    </li>
+                </ol>
+            </nav>
         </div>
 
-        
 
-            </div>
-          </div>
+        <section class="section">
+            <div class="row">
 
-        </div>
-      </div>
-    </section>
+                <div class="card">
+                    <div class="card-body">
 
-  </main><!-- End #main -->
+                        <h5 class="card-title">Please upload supporting documents.</h5>
 
-  
-  <th:block th:replace="~{fragments/BackToTop.html::back-to-top}"></th:block>
-  <th:block th:replace="~{fragments/Footer.html::footer}"></th:block>
-  <th:block th:replace="~{fragments/Scripts.html::scripts}"></th:block>
+                        <!-- Multi Columns Form -->
+                        <form class="row g-3" method="POST" enctype="multipart/form-data"
+                            th:action="@{/applicant/apply/docs/{id}(id=${studentApplication.id})}"
+                        >
+
+                            <!-- Qualification Transcript -->
+                            <div class="col-md-12">
+                                <label for="qualificationTranscript" class="form-label">Qualification Transcript (Eg:
+                                    SPM)</label>
+                                <input class="form-control form-control-sm" id="qualificationTranscript" type="file"
+                                    name="qualificationTranscript" required>
+                            </div>
+
+                            <!-- English language Certification -->
+                            <div class="col-md-12">
+                                <label for="englishCert" class="form-label">English Language Certification (Eg:
+                                    MUET)</label>
+                                <input class="form-control form-control-sm" id="englishCert" type="file"
+                                    name="englishCert" required>
+                            </div>
+
+                            <!-- Identity -->
+                            <div class="col-md-12">
+                                <label for="identity" class="form-label">Identity (Eg: MyKad/Passport)</label>
+                                <input class="form-control form-control-sm" id="identity" type="file" name="identity"
+                                    required>
+                            </div>
+
+                            <!-- Other documents -->
+                            <div class="col-md-12">
+                                <label for="otherDocs" class="form-label">Other documents</label>
+                                <input class="form-control form-control-sm" id="otherDocs" type="file" name="otherDocs"
+                                    required multiple>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+
+                    </div>
+        </section>
+    </main>
+
+
+    <th:block th:replace="~{fragments/BackToTop.html::back-to-top}"></th:block>
+    <th:block th:replace="~{fragments/Footer.html::footer}"></th:block>
+    <th:block th:replace="~{fragments/Scripts.html::scripts}"></th:block>
 </body>
 
 </html>

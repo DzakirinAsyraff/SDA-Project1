@@ -8,6 +8,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,21 +24,25 @@ import sda.project.SRAD.Enums.EMartialStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Agent {
+
+    // Id is auto mapped to match User.userId
     @Id
-    private String agentId;
+    private Long id;
     
     private String address;
     private ECountry countryOfBirth;
     private LocalDate dateOfBirth;
-    private char gender;
+    private Character gender;
     private EMartialStatus martialStatus;
     private ECountry nationality;
     private String religion;
+
     private String company;
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user", referencedColumnName = "userId")
     @JsonBackReference
+    @MapsId
     private User user;
     
     // TODO: Agent application reference
@@ -47,7 +52,7 @@ public class Agent {
     public Agent(RegistrationFormData formData) {
         User u = new User(formData);
         this.user = u;
-        this.agentId = formData.getAgentId();
+
         this.address = formData.getAddress();
         this.countryOfBirth = formData.getCountryOfBirth();
         this.dateOfBirth = formData.getDateOfBirth();

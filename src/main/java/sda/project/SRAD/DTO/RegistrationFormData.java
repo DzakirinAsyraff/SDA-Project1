@@ -17,6 +17,7 @@ import sda.project.SRAD.Enums.EUserType;
 public class RegistrationFormData implements Serializable {
     String username;
     String password;
+    String confirmPassword;
     String name;
     String icPassport;
     String email;
@@ -31,10 +32,6 @@ public class RegistrationFormData implements Serializable {
     ECountry nationality;
     String religion;
 
-    // Student only
-    String matricNo;
-
-    // Agent only
-    String agentId;
+    // Agent only fields
     String companyName;
 }

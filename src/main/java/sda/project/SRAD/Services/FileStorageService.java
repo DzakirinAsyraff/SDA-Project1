@@ -26,19 +26,25 @@ public class FileStorageService {
 
 
     // Store a file
-	public void store(MultipartFile file) throws IOException {
+	public void store(MultipartFile file, String directory) throws IOException {
 		try {
-			if (file.isEmpty()) 
-				throw new IOException("Failed to store empty file.");
+			Path destinationDirectory = this.rootLocation
+				.resolve( Paths.get( directory ) )
+				.normalize()
+				.toAbsolutePath();
+			
+			// Empty files are not allowed
+			if (file.isEmpty()) throw new IOException("Failed to store empty file.");
 
-			Path destinationFile = this.rootLocation
-                .resolve( Paths.get(file.getOriginalFilename()) )
+			// Create the directory if it doesn't exist
+			if (!Files.exists(destinationDirectory)) 
+				Files.createDirectories(destinationDirectory);
+
+			// This is the path to the destination file
+			Path destinationFile = destinationDirectory
+                .resolve( Paths.get( file.getOriginalFilename() ) )
                 .normalize()
                 .toAbsolutePath();
-
-            // This is a security check
-			if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) 
-				throw new IOException("Cannot store file outside current directory.");
             
 			try (InputStream inputStream = file.getInputStream()) {
 				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
@@ -52,11 +58,20 @@ public class FileStorageService {
     
 
     // Returns a list of all the files in the upload directory as Paths
-	public Stream<Path> loadAll() throws IOException {
+	public Stream<Path> loadAll(String directory) throws IOException {
 		try {
-			return Files.walk(this.rootLocation, 1)
-				.filter(path -> !path.equals(this.rootLocation))
-				.map(this.rootLocation::relativize);
+			Path destinationDirectory = this.rootLocation
+				.resolve( Paths.get( directory ) )
+				.normalize()
+				.toAbsolutePath();
+
+			// Create the directory if it doesn't exist
+			if (!Files.exists(destinationDirectory)) 
+				Files.createDirectories(destinationDirectory);
+
+			return Files.walk(destinationDirectory, 1)
+				.filter(path -> !path.equals(destinationDirectory))
+				.map(destinationDirectory::relativize);
 		}
 		catch (IOException e) {
 			throw new IOException("Failed to read stored files", e);
@@ -66,16 +81,17 @@ public class FileStorageService {
 
 
     // Returns a Path to the file with the given filename
-	public Path load(String filename) {
-		return rootLocation.resolve(filename);
+	public Path loadFilePath(String filename, String directory) {
+		return rootLocation.resolve(directory).resolve(filename);
 	}
 
 
     // Returns a Resource to the file with the given filename
-	public Resource loadAsResource(String filename) throws IOException {
+	public Resource loadAsResource(String filename, String directory) throws IOException {
 		try {
-			Path file = load(filename);
+			Path file = loadFilePath(filename, directory);
 			Resource resource = new UrlResource(file.toUri());
+
 			if (resource.exists() || resource.isReadable())
 				return resource;
 			else
@@ -95,9 +111,9 @@ public class FileStorageService {
 
 
     // Delete a file with the given filename
-    public void delete(String filename) throws IOException {
+    public void delete(String filename, String directory) throws IOException {
         try {
-            Path file = load(filename);
+            Path file = loadFilePath(filename, directory);
             Files.delete(file);
         }
         catch (IOException e) {
@@ -106,9 +122,10 @@ public class FileStorageService {
     }
 
 
-    // Init method to create the upload directory if it does not exist
+    // Init method to create the upload directory if it does not exist, also clears the directory
 	public void init() throws IOException {
 		try {
+			deleteAll();
 			Files.createDirectories(rootLocation);
 		}
 		catch (IOException e) {

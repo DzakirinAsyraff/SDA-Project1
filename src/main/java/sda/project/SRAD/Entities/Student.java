@@ -8,6 +8,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,21 +24,23 @@ import sda.project.SRAD.Enums.EMartialStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Student {
+
+    // Id is auto mapped to match User.userId
     @Id
-    private String matricNo;
+    private Long id;
     
     private String address;
     private ECountry countryOfBirth;
     private LocalDate dateOfBirth;
-    private char gender;
+    private Character gender;
     private EMartialStatus martialStatus;
     private ECountry nationality;
     private String religion;
 
-    
-    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user", referencedColumnName = "userId")
+    @OneToOne(cascade = {CascadeType.ALL})
     @JsonBackReference
+    @MapsId
     private User user;
 
 
@@ -45,7 +48,7 @@ public class Student {
     public Student(RegistrationFormData formData) {
         User u = new User(formData);
         this.user = u;
-        this.matricNo = formData.getMatricNo();
+
         this.address = formData.getAddress();
         this.countryOfBirth = formData.getCountryOfBirth();
         this.dateOfBirth = formData.getDateOfBirth();

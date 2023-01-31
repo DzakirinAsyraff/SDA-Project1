@@ -39,7 +39,7 @@ public class FileUploadController {
 		model.addAttribute(
             "files", 
             storageService
-                .loadAll()
+                .loadAll("test")
                 .map(path -> MvcUriComponentsBuilder
                     .fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString()).build().toUri().toString()
                 )
@@ -56,7 +56,7 @@ public class FileUploadController {
         RedirectAttributes redirectAttributes
     ) throws IOException {
 
-        storageService.delete(filename);
+        storageService.delete(filename, "test");
         redirectAttributes.addFlashAttribute("message", "You successfully deleted " + filename + "!");
 
         return "redirect:/upload";
@@ -70,7 +70,7 @@ public class FileUploadController {
     ) throws IOException {
 
         // Serves the file with the given filename, usually results in a download
-		Resource file = storageService.loadAsResource(filename);
+		Resource file = storageService.loadAsResource(filename, "test");
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
 				"attachment; filename=\"" + file.getFilename() + "\"").body(file);
 	}
@@ -81,7 +81,7 @@ public class FileUploadController {
 		RedirectAttributes redirectAttributes
     ) throws IOException {
 
-		storageService.store(file);
+		storageService.store(file, "test");
 		redirectAttributes.addFlashAttribute("message",
 				"You successfully uploaded " + file.getOriginalFilename() + "!");
 

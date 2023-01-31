@@ -2,10 +2,16 @@ package sda.project.SRAD.Enums;
 
 
 public enum EUserType {
-    STUDENT("STUDENT"),
-    SRADSTAFF("SRADSTAFF"),
-    FACULTYSTAFF("FACULTYSTAFF"),
-    AGENT("AGENT");
+    STUDENT( EUserType.STUDENT_STR ),
+    SRADSTAFF( EUserType.SRADSTAFF_STR ),
+    FACULTYSTAFF( EUserType.FACULTYSTAFF_STR ),
+    AGENT( EUserType.AGENT_STR );
+
+    public static final String STUDENT_STR = "STUDENT";
+    public static final String SRADSTAFF_STR = "SRADSTAFF";
+    public static final String FACULTYSTAFF_STR = "FACULTYSTAFF";
+    public static final String AGENT_STR = "AGENT";
+    
 
 
     private final String name;

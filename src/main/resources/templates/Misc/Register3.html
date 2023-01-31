@@ -18,7 +18,7 @@
 
                     <!-- Logo -->
                     <div class="d-flex justify-content-center py-4">
-                        <a th:href="@{/staff/}" class="logo d-flex align-items-center w-auto">
+                        <a th:href="@{/}" class="logo d-flex align-items-center w-auto">
                             <img th:src="@{/img/logo.png}" alt="SRAD logo">
                             <span class="d-none d-lg-block ms-2">SRAD</span>
                         </a>
@@ -46,26 +46,14 @@
                                 <input type="hidden" name="email" th:value="${form.email}" required>
                                 <input type="hidden" name="userType" th:value="${form.userType}" required>
                                 
-                                <!-- Matric No -->
-                                <div class="col-12" th:if='${form.userType.name() == "STUDENT"}'>
-                                    <label for="matricNo" class="form-label">Matric No</label>
-                                    <input type="text" class="form-control" id="matricNo" name="matricNo" required>
-                                    <div class="invalid-feedback">Please enter your Matric No!</div>
-                                </div>
 
-                                <!-- Agent ID -->
-                                <div class="col-12" th:if='${form.userType.name() == "AGENT"}'>
-                                    <label for="agentId" class="form-label">Agent ID</label>
-                                    <input type="text" class="form-control" id="agentId" name="agentId" required>
-                                    <div class="invalid-feedback">Please enter your Agent ID!</div>
-                                </div>
-
-                                <!-- Compnay name -->
+                                <!-- Compnay name - Only for Agents -->
                                 <div class="col-12" th:if='${form.userType.name() == "AGENT"}'>
                                     <label for="companyName" class="form-label">Company Name</label>
                                     <input type="text" class="form-control" id="companyName" name="companyName" required>
                                     <div class="invalid-feedback">Please enter your Company Name!</div>
                                 </div>
+                                
 
                                 <!-- Address -->
                                 <div class="col-12">

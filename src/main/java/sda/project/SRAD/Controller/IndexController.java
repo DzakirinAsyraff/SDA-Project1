@@ -44,8 +44,8 @@ public class IndexController {
             return "redirect:/login";
         }
 
-        if (u.getUserType() == EUserType.SRADSTAFF) return "redirect:/staff/";
-        else return "redirect:/student/";
+        if (u.getUserType() == EUserType.SRADSTAFF) return "redirect:/staff";
+        else return "redirect:/applicant";
     }
 
 
@@ -115,6 +115,13 @@ public class IndexController {
         Model model,
         RedirectAttributes redirAttr
     ) {
+        // Check password and confirm password match
+        if (!formData.getPassword().equals(formData.getConfirmPassword())) {
+            AlertUtil.alertDanger(redirAttr, "Passwords do not match");
+            return "redirect:/register";
+        }
+
+        // Check if username is already taken
         User u = authService.getUserRepository().findByUsername(formData.getUsername());
         if (u != null) {
             AlertUtil.alertDanger(redirAttr, "Username already taken");

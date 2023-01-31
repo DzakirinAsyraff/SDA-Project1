@@ -18,7 +18,7 @@
 
                     <!-- Logo -->
                     <div class="d-flex justify-content-center py-4">
-                        <a th:href="@{/staff/}" class="logo d-flex align-items-center w-auto">
+                        <a th:href="@{/}" class="logo d-flex align-items-center w-auto">
                             <img th:src="@{/img/logo.png}" alt="SRAD logo">
                             <span class="d-none d-lg-block ms-2">SRAD</span>
                         </a>
@@ -54,6 +54,14 @@
                                     <input type="password" name="password" class="form-control"
                                         id="yourPassword" required>
                                     <div class="invalid-feedback">Please enter your password!</div>
+                                </div>
+
+                                <!-- Confirm Password -->
+                                <div class="col-12">
+                                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                    <input type="password" name="confirmPassword" class="form-control"
+                                        id="confirmPassword" required>
+                                    <div class="invalid-feedback">Please enter confirm password!</div>
                                 </div>
 
                                 <!-- Submit -->

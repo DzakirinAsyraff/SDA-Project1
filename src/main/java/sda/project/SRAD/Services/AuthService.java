@@ -52,15 +52,15 @@ public class AuthService {
     }
 
 
-    public void registerStudent(RegistrationFormData formData) {
+    public Student registerStudent(RegistrationFormData formData) {
         formData.setPassword( passwordEncoder.encode(formData.getPassword()) );
         Student s = new Student(formData);
-        studentRepository.save(s);
+        return studentRepository.save(s);
     }
 
-    public void registerAgent(RegistrationFormData formData) {
+    public Agent registerAgent(RegistrationFormData formData) {
         formData.setPassword( passwordEncoder.encode(formData.getPassword()) );
         Agent a = new Agent(formData);
-        agentRepository.save(a);
+        return agentRepository.save(a);
     }
 }
