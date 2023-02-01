@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
+import lombok.Setter;
 import sda.project.SRAD.Entities.Student;
 import sda.project.SRAD.Entities.StudentApplication;
 import sda.project.SRAD.Entities.StudentApplicationDocuments;
@@ -21,25 +21,48 @@ import sda.project.SRAD.Repositories.StudentApplicationPaymentRepository;
 import sda.project.SRAD.Repositories.StudentApplicationRepository;
 import sda.project.SRAD.Repositories.StudentRepository;
 
-@Service
+
+
 public class ApplicantService {
+
+    // Singleton - Instance
+    private static ApplicantService instance = null;
+
+    // Singleton - Private constructor
+    private ApplicantService() {}
+
+    // Singleton - Get instance
+    public static ApplicantService getInstance() {
+        // First time instance is null, so create new instance and obtain all the related beans
+        if (instance == null) {
+            instance = new ApplicantService();
+            instance.studentRepository = context.getBean(StudentRepository.class);
+            instance.studentApplicationRepository = context.getBean(StudentApplicationRepository.class);
+            instance.studentApplicationDocumentsRepository = context.getBean(StudentApplicationDocumentsRepository.class);
+            instance.studentApplicationPaymentRepository = context.getBean(StudentApplicationPaymentRepository.class);
+            instance.fileStorageService = context.getBean(FileStorageService.class);
+        }
+
+        return instance;
+    }
+
 
     private final String DIR_PREFIX = "stud_app/";
 
+
+    // Please set this on application start
+    @Setter
+    @Getter
+    private static ApplicationContext context;
     
-    @Autowired
     @Getter
     private StudentRepository studentRepository;
-    @Autowired
     @Getter
     private StudentApplicationRepository studentApplicationRepository;
-    @Autowired
     @Getter
     private StudentApplicationDocumentsRepository studentApplicationDocumentsRepository;
-    @Autowired
     @Getter
     private StudentApplicationPaymentRepository studentApplicationPaymentRepository;
-    @Autowired
     @Getter
     private FileStorageService fileStorageService;
 
