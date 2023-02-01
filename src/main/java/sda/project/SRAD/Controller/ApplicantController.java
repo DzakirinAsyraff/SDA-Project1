@@ -2,7 +2,6 @@ package sda.project.SRAD.Controller;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,9 +26,6 @@ import sda.project.SRAD.Utils.AlertUtil;
 @RequestMapping("/applicant")
 @Secured({ EUserType.STUDENT_STR })
 public class ApplicantController {
-    
-    @Autowired
-    private ApplicantService applicantService;
 
 
     @GetMapping("")
@@ -43,7 +39,7 @@ public class ApplicantController {
     public String apply(
         HttpServletRequest request
     ) {
-        Student s = applicantService.getStudent( (User) request.getAttribute("user") );
+        Student s = ApplicantService.getInstance().getStudent( (User) request.getAttribute("user") );
         request.setAttribute("student", s);
         request.setAttribute("faculties", EFaculty.values());
         return "Applicant/StudentRegistrationForm";
@@ -55,10 +51,10 @@ public class ApplicantController {
         HttpServletRequest request,
         StudentApplication sa
     ) {
-        Student s = applicantService.getStudent( (User) request.getAttribute("user") );
+        Student s = ApplicantService.getInstance().getStudent( (User) request.getAttribute("user") );
         sa.setStudent(s);
         sa.setStatus(EStudentApplicationStatus.DRAFT);
-        sa = applicantService.saveStudentApplication(sa);
+        sa = ApplicantService.getInstance().saveStudentApplication(sa);
         return "redirect:/applicant/apply/docs/" + sa.getId();
     }
 
@@ -69,7 +65,7 @@ public class ApplicantController {
         RedirectAttributes redirAttr,
         @PathVariable Long id
     ) {
-        StudentApplication sa = applicantService.getStudentApplicationRepository().findById(id).orElse(null);
+        StudentApplication sa = ApplicantService.getInstance().getStudentApplicationRepository().findById(id).orElse(null);
         User u = (User) request.getAttribute("user");
 
         // Check if application exists
@@ -100,7 +96,7 @@ public class ApplicantController {
         @RequestParam("identity") MultipartFile identity,
         @RequestParam("otherDocs") MultipartFile[] otherDocs
     ) throws IOException {
-        StudentApplication sa = applicantService.getStudentApplicationRepository().findById(id).orElse(null);
+        StudentApplication sa = ApplicantService.getInstance().getStudentApplicationRepository().findById(id).orElse(null);
         User u = (User) request.getAttribute("user");
 
         // Check if application exists
@@ -116,7 +112,7 @@ public class ApplicantController {
         }
 
         // Save documents
-        sa = applicantService.saveStudentApplicationDocuments(
+        sa = ApplicantService.getInstance().saveStudentApplicationDocuments(
             sa, 
             qualificationTranscript, 
             englishCert, 
@@ -141,7 +137,7 @@ public class ApplicantController {
         RedirectAttributes redirAttr,
         @PathVariable Long id
     ) {
-        StudentApplication sa = applicantService.getStudentApplicationRepository().findById(id).orElse(null);
+        StudentApplication sa = ApplicantService.getInstance().getStudentApplicationRepository().findById(id).orElse(null);
         User u = (User) request.getAttribute("user");
 
         // Check if application exists
@@ -168,7 +164,7 @@ public class ApplicantController {
         @PathVariable Long id,
         @RequestParam("paymentProof") MultipartFile paymentProof
     ) throws IOException {
-        StudentApplication sa = applicantService.getStudentApplicationRepository().findById(id).orElse(null);
+        StudentApplication sa = ApplicantService.getInstance().getStudentApplicationRepository().findById(id).orElse(null);
         User u = (User) request.getAttribute("user");
 
         // Check if application exists
@@ -183,7 +179,7 @@ public class ApplicantController {
             return "redirect:/applicant";
         }
 
-        applicantService.saveStudentApplicationPayment(sa, paymentProof);
+        ApplicantService.getInstance().saveStudentApplicationPayment(sa, paymentProof);
     
         AlertUtil.alertSuccess(redirAttr, "Application submitted successfully");
         return "redirect:/applicant";
