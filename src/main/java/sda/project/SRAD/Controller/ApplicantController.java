@@ -1,5 +1,7 @@
 package sda.project.SRAD.Controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -12,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.websocket.server.PathParam;
 import sda.project.SRAD.Entities.Student;
 import sda.project.SRAD.Entities.StudentApplication;
 import sda.project.SRAD.Entities.User;
@@ -98,7 +99,7 @@ public class ApplicantController {
         @RequestParam("englishCert") MultipartFile englishCert,
         @RequestParam("identity") MultipartFile identity,
         @RequestParam("otherDocs") MultipartFile[] otherDocs
-    ) {
+    ) throws IOException {
         StudentApplication sa = applicantService.getStudentApplicationRepository().findById(id).orElse(null);
         User u = (User) request.getAttribute("user");
 
@@ -114,6 +115,14 @@ public class ApplicantController {
             return "redirect:/applicant";
         }
 
+        // Save documents
+        applicantService.saveStudentApplicationDocuments(
+            sa, 
+            qualificationTranscript, 
+            englishCert, 
+            identity, 
+            otherDocs
+        );
 
         return "redirect:/applicant/apply/docs/" + sa.getId();
     }

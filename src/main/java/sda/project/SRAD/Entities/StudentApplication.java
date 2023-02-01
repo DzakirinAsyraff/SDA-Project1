@@ -2,6 +2,7 @@ package sda.project.SRAD.Entities;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -9,7 +10,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,4 +46,9 @@ public class StudentApplication {
     @JoinColumn(name = "student", referencedColumnName = "user")
     @JsonBackReference
     private Student student;
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "studentApplicationDocuments", referencedColumnName = "studentApplication")
+    @JsonManagedReference
+    private StudentApplicationDocuments studentApplicationDocuments;
 }

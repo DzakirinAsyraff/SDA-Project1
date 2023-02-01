@@ -26,7 +26,7 @@ public class FileStorageService {
 
 
     // Store a file
-	public void store(MultipartFile file, String directory) throws IOException {
+	public Path store(MultipartFile file, String directory) throws IOException {
 		try {
 			Path destinationDirectory = this.rootLocation
 				.resolve( Paths.get( directory ) )
@@ -45,10 +45,12 @@ public class FileStorageService {
                 .resolve( Paths.get( file.getOriginalFilename() ) )
                 .normalize()
                 .toAbsolutePath();
-            
+
 			try (InputStream inputStream = file.getInputStream()) {
 				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
 			}
+
+			return destinationFile;
 		}
 		catch (IOException e) {
 			throw new IOException("Failed to store file.", e);
@@ -81,15 +83,17 @@ public class FileStorageService {
 
 
     // Returns a Path to the file with the given filename
-	public Path loadFilePath(String filename, String directory) {
-		return rootLocation.resolve(directory).resolve(filename);
+	public Path loadFilePath(String[] paths) {
+		Path path = rootLocation;
+		for (String p : paths) path = path.resolve(p);
+		return path;
 	}
 
 
     // Returns a Resource to the file with the given filename
 	public Resource loadAsResource(String filename, String directory) throws IOException {
 		try {
-			Path file = loadFilePath(filename, directory);
+			Path file = loadFilePath( new String[]{ directory, filename } );
 			Resource resource = new UrlResource(file.toUri());
 
 			if (resource.exists() || resource.isReadable())
@@ -110,10 +114,17 @@ public class FileStorageService {
 	}
 
 
+	// Delete files in the given directory
+	public void deleteAll(String directory) throws IOException {
+		Path destinationDirectory = loadFilePath( new String[]{ directory } );
+		FileSystemUtils.deleteRecursively(destinationDirectory.toFile());
+	}
+
+
     // Delete a file with the given filename
     public void delete(String filename, String directory) throws IOException {
         try {
-            Path file = loadFilePath(filename, directory);
+            Path file = loadFilePath( new String[]{ directory, filename } );
             Files.delete(file);
         }
         catch (IOException e) {

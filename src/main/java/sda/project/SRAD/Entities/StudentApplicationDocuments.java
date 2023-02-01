@@ -24,6 +24,13 @@ public class StudentApplicationDocuments {
     @Id
     private Long id;
 
+    private String directory;
+
+    private String qualificationTranscript;
+    private String englishCert;
+    private String identity;
+    private String[] otherDocs;
+
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "studentApplication", referencedColumnName = "id")
