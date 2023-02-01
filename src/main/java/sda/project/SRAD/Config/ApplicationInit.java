@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,7 @@ import sda.project.SRAD.Enums.EMartialStatus;
 import sda.project.SRAD.Enums.EUserType;
 import sda.project.SRAD.Repositories.StudentRepository;
 import sda.project.SRAD.Repositories.UserRepository;
+import sda.project.SRAD.Services.ApplicantService;
 import sda.project.SRAD.Services.FileStorageService;
 
 
@@ -34,8 +36,13 @@ public class ApplicationInit implements ApplicationRunner {
     @Autowired
     private FileStorageService fileStorageService;
 
+    @Autowired
+    private ApplicationContext context;
+
 
     public void run(ApplicationArguments args) throws IOException {
+        ApplicantService.setContext(context);
+
         // Create the uploads folder if it doesn't exist
         fileStorageService.init();
 
