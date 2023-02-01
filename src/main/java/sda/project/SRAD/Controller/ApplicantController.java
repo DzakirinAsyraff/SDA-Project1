@@ -116,7 +116,7 @@ public class ApplicantController {
         }
 
         // Save documents
-        applicantService.saveStudentApplicationDocuments(
+        sa = applicantService.saveStudentApplicationDocuments(
             sa, 
             qualificationTranscript, 
             englishCert, 
@@ -124,21 +124,74 @@ public class ApplicantController {
             otherDocs
         );
 
-        return "redirect:/applicant/apply/docs/" + sa.getId();
+        if (sa.getStatus() == EStudentApplicationStatus.PENDING_PAYMENT)
+            return "redirect:/applicant/apply/pay/" + sa.getId();
+        else {
+            AlertUtil.alertSuccess(redirAttr, "Documents resubmitted successfully");
+            return "redirect:/applicant";
+        }
     }
 
 
 
 
-    @GetMapping("apply/pay")
-    public String pay() {
+    @GetMapping("apply/pay/{id}")
+    public String pay(
+        HttpServletRequest request,
+        RedirectAttributes redirAttr,
+        @PathVariable Long id
+    ) {
+        StudentApplication sa = applicantService.getStudentApplicationRepository().findById(id).orElse(null);
+        User u = (User) request.getAttribute("user");
+
+        // Check if application exists
+        if (sa == null) {
+            AlertUtil.alertDanger(redirAttr, "Application not found");
+            return "redirect:/applicant";
+        }
+
+        // Check if the student is the owner of the application
+        if ( !(sa.getStudent().getId().equals( u.getUserId() ) ) ) {
+            AlertUtil.alertDanger(redirAttr, "You are not authorized to view this page");
+            return "redirect:/applicant";
+        }
+        
+        request.setAttribute("studentApplication", sa);
         return "Applicant/Payment";
     }
 
-    @GetMapping("apply/upload")
-    public String upload() {
-        return "Applicant/UploadDocuments";
+
+    @PostMapping("apply/pay/{id}")
+    public String payPost(
+        HttpServletRequest request,
+        RedirectAttributes redirAttr,
+        @PathVariable Long id,
+        @RequestParam("paymentProof") MultipartFile paymentProof
+    ) throws IOException {
+        StudentApplication sa = applicantService.getStudentApplicationRepository().findById(id).orElse(null);
+        User u = (User) request.getAttribute("user");
+
+        // Check if application exists
+        if (sa == null) {
+            AlertUtil.alertDanger(redirAttr, "Application not found");
+            return "redirect:/applicant";
+        }
+
+        // Check if the student is the owner of the application
+        if ( !(sa.getStudent().getId().equals( u.getUserId() ) ) ) {
+            AlertUtil.alertDanger(redirAttr, "You are not authorized to view this page");
+            return "redirect:/applicant";
+        }
+
+        applicantService.saveStudentApplicationPayment(sa, paymentProof);
+    
+        AlertUtil.alertSuccess(redirAttr, "Application submitted successfully");
+        return "redirect:/applicant";
     }
+
+
+
+
 
     @GetMapping("view-initiated")
     public String viewInitiated() {
